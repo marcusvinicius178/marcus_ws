@@ -1,0 +1,5 @@
+
+<launch>
+    <include file="$(find my_gurdy_description)/launch/spawn_gurdy_with_controllers.launch"/>
+    <include file="$(find my_gurdy_description)/launch/gurdy_sixjoints_control.launch"/>
+</launch>

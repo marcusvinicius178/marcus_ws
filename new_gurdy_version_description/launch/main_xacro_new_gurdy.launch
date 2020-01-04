@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <include file="$(find my_gurdy_description)/launch/spawn_new_gurdy_xacro.launch">
+        <arg name="x" value="0.5" />
+        <arg name="y" value="0.0" />
+        <arg name="z" value="0.18" />
+        <arg name="robot_name" value="new_gurdy" />
+    </include>
+    <include file="$(find new_gurdy_version_description)/launch/new_gurdy_control.launch"/>
+
+<!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+  </node>
+
+</launch>
