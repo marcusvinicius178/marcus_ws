@@ -1,0 +1,9 @@
+float64[] location
+float64[16] covariance
+float64 x
+float64 y
+float64 xerror
+float64 yerror
+float64 existence_probability
+string[] object_class
+string[] object_detected_feature
