@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <arg name="urdf_robot_file" default="$(find new_jibo_description)/urdf/jibo.urdf" />
+    <param name="robot_description" command="cat $(arg urdf_robot_file)" />
+
+    <arg name="x" default="1.0" />
+    <arg name="y" default="0.0" />
+    <arg name="z" default="0.0" />
+    <arg name="roll" default="0.0"/>
+    <arg name="pitch" default="0.0"/>
+    <arg name="yaw" default="0.0"/>
+
+    <group ns="jibo">
+        <!-- Spawn Part -->
+
+        <arg name="robot_name" default="jibo" />
+
+
+        <rosparam file="$(find new_jibo_description)/config/jibo_controllers.yaml" command="load" ns="/jibo"/>
+
+        <param name="/jibo/robot_description" command="cat $(arg urdf_robot_file)" />
+
+        <!-- send fake joint values -->
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="TRUE"/>
+        </node>
+
+        <node name="urdf_spawner_jibo" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg robot_name) -param /jibo/robot_description"/>
+
+        <node name="robot_state_publisher_jibo" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+            <param name="publish_frequency" type="double" value="5.0" />
+        </node>
+
+        <node name="jibo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="--namespace=/jibo
+                              /jibo/joint_state_controller
+                              /jibo/base_yaw_joint_position_controller
+                              /jibo/fix_waist_joint_position_controller
+                              /jibo/waist_body_joint_position_controller
+                              /jibo/waist_roll_aux_joint_position_controller
+                              /jibo/roll_yaw2_aux_joint_position_controller
+                              --shutdown-timeout 3">
+        </node>
+
+
+
+    </group>
+
+</launch>
