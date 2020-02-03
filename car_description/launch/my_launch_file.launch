@@ -1,0 +1,55 @@
+<launch>
+	<arg name="urdf_jibo2_file" default="$(find solution_jibo_description)/urdf/jibo2.urdf" />
+	<arg name="jibo_name" default="jibo2" />
+
+   <arg name="urdf_car_file" default="$(find car_description)/robots/diff_wheeled_robot.xacro" />
+   <arg name="car_name" default="differential_wheeled_robot" />
+
+
+
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.0" />
+
+
+  <param name="/use_sim_time" value="true" />
+
+  <!-- start world -->
+   <node name="gazebo" pkg="gazebo_ros" type="gazebo" 
+   args="$(find car_gazebo)/worlds/basic_car.world" respawn="false" output="screen" /> 
+
+  <!-- Enable the person look for the car (walk) -->
+  <include file="$(find car_description)/launch/looking_for_the_car.launch" /> 
+
+  <!-- start gui -->
+  <!-- <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> -->
+
+  <group ns="jibo2">
+
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description" command="cat $(arg urdf_jibo2_file)" />
+
+    <param name="tf_prefix" value="jibo2_tf" />
+    <include file="$(find car_description)/launch/jibo2_robot.launch" >
+      <arg name="init_pose" value="-x -3 -y 2 -z 0" />
+      <arg name="robot_name"  value="jibo2" />
+    </include>
+
+  </group>
+
+  <!-- BEGIN ROBOT 1-->
+  <group ns="basic_car">
+
+    <!-- Load the URDF into the ROS Parameter Server -->
+   <!-- <param name="robot_description" command="cat $(arg urdf_car_file)" /> -->
+<param name="robot_description" command="$(find xacro)/xacro.py $(find car_description)/robots/diff_wheeled_robot.xacro" />
+
+
+    <param name="tf_prefix" value="basic_car_tf" />
+    <include file="$(find car_description)/launch/car_robot.launch" >
+      <arg name="init_pose" value="-x 1 -y 1 -z 0" />
+      <arg name="robot_name"  value="differential_wheeled_robot" />
+    </include>
+  </group>
+</launch>
+

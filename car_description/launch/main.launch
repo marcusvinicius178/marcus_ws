@@ -1,0 +1,19 @@
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <!-- start world -->
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" 
+   args="$(find car_gazebo)/worlds/basic_car.world" respawn="false" output="screen" />
+
+  <!-- Enable the person look for the car (walk) -->
+  <include file="$(find car_description)/launch/looking_for_the_car.launch" /> 
+
+  <!-- start gui -->
+  <!-- <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> -->
+
+  <!-- include our robots -->
+  
+  <include file="$(find car_description)/launch/jibo_multiplerobots.launch"/>
+  <include file="$(find car_description)/launch/car_multiplerobots.launch"/>
+  
+</launch>

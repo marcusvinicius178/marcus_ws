@@ -1,0 +1,19 @@
+<launch>
+  <!-- No namespace here as we will share this description.
+       Access with slash at the beginning -->
+    <arg name="urdf_robot_file" default="$(find solution_jibo_description)/urdf/jibo2.urdf" />
+    <arg name="robot_name" default="jibo2" />
+
+
+  <!-- BEGIN ROBOT 2-->
+  <group ns="jibo2">
+    <param name="robot_description2" command="cat $(arg urdf_robot_file)" />
+    <param name="tf_prefix" value="jibo2_tf" />
+    <include file="$(find car_description)/launch/jibo2_robot.launch" >
+      <arg name="init_pose" value="-x -3 -y 2 -z 0" />
+      <arg name="robot_name"  value="jibo2" />
+    </include>
+  </group>
+
+</launch>
+

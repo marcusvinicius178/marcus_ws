@@ -1,0 +1,22 @@
+<launch>
+  <!-- No namespace here as we will share this description.
+       Access with slash at the beginning -->
+    <arg name="urdf_robot_file" default="$(find car_description)/urdf/basic_car.urdf" />
+    <arg name="robot_name" default="basic_car" />
+
+<param name="robot_description" command="cat $(arg urdf_robot_file)" />
+
+
+  <!-- BEGIN ROBOT 1-->
+  <group ns="basic_car">
+    <param name="tf_prefix" value="basic_car_tf" />
+    <include file="$(find car_description)/launch/car_robot.launch" >
+      <arg name="init_pose" value="-x 1 -y 1 -z 0" />
+      <arg name="robot_name"  value="basic_car" />
+    </include>
+  </group>
+
+</launch>
+
+ 
+ 
