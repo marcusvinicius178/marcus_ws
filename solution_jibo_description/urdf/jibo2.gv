@@ -1,0 +1,29 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"waist_link" [label="waist_link"];
+"body_link" [label="body_link"];
+"head_link" [label="head_link"];
+"camera2_link" [label="camera2_link"];
+"camera3_link" [label="camera3_link"];
+"camera_link" [label="camera_link"];
+"left_wheel_link" [label="left_wheel_link"];
+"right_wheel_link" [label="right_wheel_link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_waist_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"base_waist_joint" -> "waist_link"
+"waist_link" -> "waist_body_joint" [label="xyz: 0 0.006 0.052 \nrpy: -0.263 0 0"]
+"waist_body_joint" -> "body_link"
+"body_link" -> "body_head_joint" [label="xyz: 0 0 0.19 \nrpy: -0.4 0 0"]
+"body_head_joint" -> "head_link"
+"head_link" -> "head_camera2_joint" [label="xyz: 0.05 0.013 0.5 \nrpy: 0 -0.75 1.5"]
+"head_camera2_joint" -> "camera2_link"
+"head_link" -> "head_camera3_joint" [label="xyz: 0.09 0.08 0.19 \nrpy: -8.411e-17 -0.85 1.5"]
+"head_camera3_joint" -> "camera3_link"
+"head_link" -> "head_camera_joint" [label="xyz: 0.01 0.01 0.3 \nrpy: 0 -0.75 1.5"]
+"head_camera_joint" -> "camera_link"
+"body_link" -> "wheel_left_joint" [label="xyz: 0 0 0.067 \nrpy: 0 -0 0"]
+"wheel_left_joint" -> "left_wheel_link"
+"body_link" -> "wheel_right_joint" [label="xyz: 0.09 0 0.067 \nrpy: 0 -0 0"]
+"wheel_right_joint" -> "right_wheel_link"
+}

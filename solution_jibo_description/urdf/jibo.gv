@@ -1,0 +1,35 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"yaw1_aux_link" [label="yaw1_aux_link"];
+"fix_aux_link" [label="fix_aux_link"];
+"waist_link" [label="waist_link"];
+"body_link" [label="body_link"];
+"roll_aux_link" [label="roll_aux_link"];
+"yaw2_aux_link" [label="yaw2_aux_link"];
+"head_link" [label="head_link"];
+"camera2_link" [label="camera2_link"];
+"camera3_link" [label="camera3_link"];
+"camera_link" [label="camera_link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_yaw_joint" [label="xyz: 0 0 0.005 \nrpy: 0 -0 0"]
+"base_yaw_joint" -> "yaw1_aux_link"
+"yaw1_aux_link" -> "yaw_fix_joint" [label="xyz: 0 0 0.0005 \nrpy: 0 -0 0"]
+"yaw_fix_joint" -> "fix_aux_link"
+"fix_aux_link" -> "fix_waist_joint" [label="xyz: 0 0 0.0005 \nrpy: 0 -0 0"]
+"fix_waist_joint" -> "waist_link"
+"waist_link" -> "waist_body_joint" [label="xyz: 0 0 0.0025 \nrpy: -0.175 0 0"]
+"waist_body_joint" -> "body_link"
+"body_link" -> "waist_roll_aux_joint" [label="xyz: 0 0 0.01 \nrpy: 0 -0 0"]
+"waist_roll_aux_joint" -> "roll_aux_link"
+"roll_aux_link" -> "roll_yaw2_aux_joint" [label="xyz: 0 0 0.01 \nrpy: 0 -0 0"]
+"roll_yaw2_aux_joint" -> "yaw2_aux_link"
+"yaw2_aux_link" -> "yaw2_aux_head_joint" [label="xyz: 0 0 0.05 \nrpy: 0 -0 0"]
+"yaw2_aux_head_joint" -> "head_link"
+"head_link" -> "head_camera2_joint" [label="xyz: 0 0.013 0.19 \nrpy: 0.4 -0 0"]
+"head_camera2_joint" -> "camera2_link"
+"head_link" -> "head_camera3_joint" [label="xyz: 0 -0.013 0.19 \nrpy: 0.4 -0 0"]
+"head_camera3_joint" -> "camera3_link"
+"head_link" -> "head_camera_joint" [label="xyz: 0 0.013 0.19 \nrpy: 0.4 -0 0"]
+"head_camera_joint" -> "camera_link"
+}

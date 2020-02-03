@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+<param name="robot_description" command="cat '$(find solution_jibo_description)/urdf/jibo2.urdf'" />
+<arg name="x" default="-2"/>
+<arg name="y" default="0"/>
+<arg name="z" default="0.1"/>
+<!-- Start Gazebo with our custom world [room] -->
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+<arg name="world_name" value="$(find solution_jibo_gazebo)/worlds/my_world.world"/>
+</include>
+<!-- Make an instance of the robot -->
+<node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+args="-urdf -param robot_description -model mybot -x $(arg x) -y $(arg y) -z $(arg z)" />
+<!-- Publish joint values -->
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+<param name="use_gui" value="False"/>
+</node>
+<!-- Combine joint values -->
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+</launch>
