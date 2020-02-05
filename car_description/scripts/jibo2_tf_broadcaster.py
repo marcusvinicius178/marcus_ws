@@ -12,12 +12,12 @@ def handle_turtle_pose(pose_msg, robot_name):
                      (pose_msg.orientation.x,pose_msg.orientation.y,pose_msg.orientation.z,pose_msg.orientation.w),
                      rospy.Time.now(),
                      robot_name,
-                     "/map")
+                     "/world")
 
 def publisher_of_tf():
 
-    rospy.init_node('publisher_of_tf_node', anonymous=True)
-    robot_name_list = ["marcus"]
+    rospy.init_node('publisher_of_tf_node_car_jibo', anonymous=True)
+    robot_name_list = ["jibo2","basic_car"]
     gazebo_model_object = GazeboModel(robot_name_list)
 
 

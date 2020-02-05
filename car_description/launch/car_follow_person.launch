@@ -1,0 +1,11 @@
+?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+    <include file="$(car_description)/launch/run_jibo2_tf_broadcaster.launch"/>
+    <include file="$(car_description)/launch/run_car_tf_listener.launch">
+        <arg name="model_to_be_followed_name" value="jibo2" />
+        <arg name="follower_model_name" value="basic_car" />
+    </include>
+
+</launch>
